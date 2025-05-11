@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Forma del Suono</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Theme Switch -->
+    <div class="theme-switch-wrapper">
+        <span class="theme-icon"><i class="fas fa-sun"></i></span>
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider"></div>
+        </label>
+        <span class="theme-icon"><i class="fas fa-moon"></i></span>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <h1>LA FORMA DEL SUONO</h1>
+            <p class="subtitle">E COME GLI EFFETTI LA MODIFICANO</p>
+        </div>
+    </header>
+
+    <nav>
+        <button class="dropdown-toggle"><i class="fas fa-chevron-down"></i> Menu</button>
+        <ul class="dropdown-menu">
+            <li><a href="#introduzione">Introduzione</a></li>
+            <li><a href="#onde-sonore">Onde Sonore</a></li>
+            <li><a href="#phaser">Phaser</a></li>
+            <li><a href="#flanger">Flanger</a></li>
+            <li><a href="#chorus">Chorus</a></li>
+            <li><a href="#equalizzatore">Equalizzatore</a></li>
+            <li><a href="#distorsione">Distorsione</a></li>
+            <li><a href="#mappa-concettuale">Mappa Concettuale</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="introduzione" class="section">
+            <div class="container">
+                <h2>Introduzione alle Onde Sonore</h2>
+                <div class="content-with-image">
+                    <div class="text-content">
+                        <p>Il suono è un'onda meccanica che si propaga attraverso un mezzo (come l'aria, l'acqua o i solidi) tramite compressioni e rarefazioni delle particelle del mezzo stesso.</p>
+                        <p>Quando un oggetto vibra, crea variazioni di pressione nell'aria circostante. Queste variazioni si propagano come onde e, quando raggiungono il nostro orecchio, vengono percepite come suono.</p>
+                    </div>
+                    <div class="image-container">
+                        <img src="images/sound-wave.jpg" alt="Rappresentazione di un'onda sonora">
+                        <p class="caption">Rappresentazione di un'onda sonora</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="onde-sonore" class="section">
+            <div class="container">
+                <h2>Proprietà delle Onde Sonore</h2>
+                <div class="content-with-image">
+                    <div class="text-content">
+                        <p><strong>Le onde sonore hanno diverse proprietà fisiche che ne determinano le caratteristiche:</strong></p>
+                        <ul class="properties-list">
+                            <li><strong>Ampiezza:</strong> Determina il volume (intensità) del suono</li>
+                            <li><strong>Frequenza:</strong> Misurata in Hertz (Hz), determina l'altezza del suono (grave o acuto)</li>
+                            <li><strong>Lunghezza d'onda:</strong> La distanza tra due punti consecutivi dell'onda con la stessa fase</li>
+                            <li><strong>Fase:</strong> La posizione relativa di un punto dell'onda nel suo ciclo</li>
+                            <li><strong>Timbro:</strong> La qualità che distingue suoni della stessa altezza e intensità</li>
+                        </ul>
+                    </div>
+                    <div class="image-container">
+                        <canvas id="waveformCanvas" width="400" height="200"></canvas>
+                        <p class="caption">Forme d'onda: sinusoidale, quadra e triangolare</p>
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <h3>Forme d'onda base:</h3>
+                    <div class="wave-types">
+                        <div class="wave-type">
+                            <h4>Onda Sinusoidale</h4>
+                            <canvas class="wave-canvas" data-type="sine" width="200" height="100"></canvas>
+                            <p>La forma d'onda più pura, contiene una sola frequenza. Produce un suono pulito e dolce.</p>
+                            <button class="play-button" data-wave-type="sine">Ascolta</button>
+                        </div>
+                        <div class="wave-type">
+                            <h4>Onda Quadra</h4>
+                            <canvas class="wave-canvas" data-type="square" width="200" height="100"></canvas>
+                            <p>Contiene molte armoniche dispari. Produce un suono ricco e 'metallico'.</p>
+                            <button class="play-button" data-wave-type="square">Ascolta</button>
+                        </div>
+                        <div class="wave-type">
+                            <h4>Onda Triangolare</h4>
+                            <canvas class="wave-canvas" data-type="triangle" width="200" height="100"></canvas>
+                            <p>Contiene armoniche dispari ma con minore intensità rispetto all'onda quadra. Suono più morbido.</p>
+                            <button class="play-button" data-wave-type="triangle">Ascolta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="phaser" class="section">
+            <div class="container">
+                <h2>Phaser</h2>
+                <div class="content-with-image">
+                    <div class="text-content">
+                        <p><strong>Cos'è un Phaser?</strong></p>
+                        <p>Il phaser è un effetto audio che divide il segnale in diversi livelli, separa le fasi, e poi le ricombina creando picchi e ventri nello spettro. Questo crea un suono "vorticoso" e in movimento.</p>
+                        <p>Il phaser funziona dividendo il segnale audio in due percorsi: uno diretto e uno che passa attraverso filtri all-pass che alterano la fase del segnale. Quando i due segnali vengono ricombinati, si verifica un'interferenza che crea un effetto di "pettine" nello spettro delle frequenze.</p>
+                    </div>
+                    <div class="image-container">
+                        <img src="images/phaser-diagram.jpg" alt="Diagramma del funzionamento di un phaser">
+                        <p class="caption">Diagramma del funzionamento di un phaser</p>
+                    </div>
+                </div>
+                <div class="audio-demo">
+                    <h3>Ascolta la differenza:</h3>
+                    <div class="audio-players">
+                        <div class="audio-player">
+                            <h4>Suono Originale</h4>
+                            <audio controls src="audio/clean-guitar.mp3"></audio>
+                        </div>
+                        <div class="audio-player">
+                            <h4>Con Phaser</h4>
+                            <audio controls src="audio/phaser-guitar.mp3"></audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="flanger" class="section">
+            <div class="container">
+                <h2>Flanger</h2>
+                <div class="content-with-image">
+                    <div class="text-content">
+                        <p><strong>Cos'è un Flanger?</strong></p>
+                        <p>Il flanger è un effetto audio che crea un suono "vorticoso" simile al passaggio di un jet. Funziona mescolando il segnale originale con una copia ritardata di se stesso, dove il tempo di ritardo varia ciclicamente.</p>
+                        <p>Questo effetto è stato originariamente creato registrando lo stesso segnale su due registratori a nastro e premendo leggermente il bordo (flange) di una delle bobine per rallentarla temporaneamente, creando un ritardo variabile.</p>
+                    </div>
+                    <div class="image-container">
+                        <img src="images/flanger-diagram.jpg" alt="Diagramma del funzionamento di un flanger">
+                        <p class="caption">Diagramma del funzionamento di un flanger</p>
+                    </div>
+                </div>
+                <div class="audio-demo">
+                    <h3>Ascolta la differenza:</h3>
+                    <div class="audio-players">
+                        <div class="audio-player">
+                            <h4>Suono Originale</h4>
+                            <audio controls src="audio/clean-guitar.mp3"></audio>
+                        </div>
+                        <div class="audio-player">
+                            <h4>Con Flanger</h4>
+                            <audio controls src="audio/flanger-guitar.mp3"></audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chorus" class="section">
+            <div class="container">
+                <h2>Chorus</h2>
+                <div class="content-with-image">
+                    <div class="text-content">
+                        <p><strong>Cos'è un Chorus?</strong></p>
+                        <p>L'effetto chorus simula il suono di più strumenti o voci che suonano la stessa nota simultaneamente. Funziona duplicando il segnale, applicando un leggero ritardo e una leggera modulazione del tono, e poi ricombinandolo con il segnale originale.</p>
+                        <p>Il risultato è un suono più ricco e "spazioso", come se ci fossero più strumenti che suonano insieme, anche se leggermente fuori sincrono tra loro.</p>
+                    </div>
+                    <div class="image-container">
+                        <img src="images/chorus-diagram.jpg" alt="Diagramma del funzionamento di un chorus">
+                        <p class="caption">Diagramma del funzionamento di un chorus</p>
+                    </div>
+                </div>
+                <div class="audio-demo">
+                    <h3>Ascolta la differenza:</h3>
+                    <div class="audio-players">
+                        <div class="audio-player">
+                            <h4>Suono Originale</h4>
+                            <audio controls src="audio/clean-guitar.mp3"></audio>
+                        </div>
+                        <div class="audio-player">
+                            <h4>Con Chorus</h4>
+                            <audio controls src="audio/chorus-guitar.mp3"></audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="equalizzatore" class="section">
+            <div class="container">
+                <h2>Equalizzatore (EQ)</h2>
+                <div class="content-with-image">
+                    <div class="text-content">
+                        <p><strong>Cos'è un Equalizzatore?</strong></p>
+                        <p>Un equalizzatore (EQ) è uno strumento che permette di attenuare o enfatizzare determinate frequenze all'interno di un segnale audio. È come un controllo del tono molto dettagliato.</p>
+                        <p>Gli equalizzatori possono essere utilizzati per correggere problemi nel suono, adattare uno strumento al mix, o creare effetti speciali alterando drasticamente lo spettro delle frequenze.</p>
+                    </div>
+                    <div class="image-container">
+                        <div id="eq-simulator" class="eq-simulator">
+                            <!-- Equalizzatore interattivo sarà inserito qui via JavaScript -->
+                        </div>
+                        <p class="caption">Simulatore di equalizzatore</p>
+                    </div>
+                </div>
+                <div class="audio-demo">
+                    <h3>Ascolta la differenza:</h3>
+                    <div class="audio-players">
+                        <div class="audio-player">
+                            <h4>Suono Originale</h4>
+                            <audio controls src="audio/clean-guitar.mp3"></audio>
+                        </div>
+                        <div class="audio-player">
+                            <h4>Con EQ</h4>
+                            <audio controls src="audio/eq-guitar.mp3"></audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="distorsione" class="section">
+            <div class="container">
+                <h2>Distorsione</h2>
+                <div class="content-with-image">
+                    <div class="text-content">
+                        <p><strong>Cos'è la Distorsione?</strong></p>
+                        <p>La distorsione è un effetto che altera la forma dell'onda sonora attraverso il clipping (taglio) o la saturazione del segnale. Questo produce una forma d'onda più "affilata" con angoli netti anziché curve morbide.</p>
+                        <p>Quando un segnale viene distorto, vengono create nuove frequenze armoniche che non erano presenti nel segnale originale, rendendo il suono più ricco e complesso, ma anche più "sporco" o "aggressivo".</p>
+                    </div>
+                    <div class="image-container">
+                        <div class="waveform-comparison">
+                            <canvas id="clean-wave" width="200" height="100"></canvas>
+                            <canvas id="distorted-wave" width="200" height="100"></canvas>
+                        </div>
+                        <p class="caption">Confronto tra onda sinusoidale pulita e distorta</p>
+                    </div>
+                </div>
+                <div class="audio-demo">
+                    <h3>Ascolta la differenza:</h3>
+                    <div class="audio-players">
+                        <div class="audio-player">
+                            <h4>Suono Originale</h4>
+                            <audio controls src="audio/clean-guitar.mp3"></audio>
+                        </div>
+                        <div class="audio-player">
+                            <h4>Con Distorsione</h4>
+                            <audio controls src="audio/distortion-guitar.mp3"></audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mappa-concettuale" class="section">
+            <div class="container">
+                <h2>Mappa Concettuale degli Effetti Audio</h2>
+                <div class="concept-map-container">
+                    <div id="concept-map" class="concept-map">
+                        <!-- La mappa concettuale sarà generata qui via JavaScript -->
+                    </div>
+                </div>
+                <div class="concept-map-legend">
+                    <h3>Legenda:</h3>
+                    <ul>
+                        <li><span class="legend-color phase-color"></span> Effetti basati sulla fase</li>
+                        <li><span class="legend-color time-color"></span> Effetti basati sul tempo</li>
+                        <li><span class="legend-color freq-color"></span> Effetti basati sulla frequenza</li>
+                        <li><span class="legend-color amp-color"></span> Effetti basati sull'ampiezza</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusione" class="section">
+            <div class="container">
+                <h2>Conclusione</h2>
+                <div class="summary-content">
+                    <p>In questo viaggio attraverso il mondo del suono e degli effetti audio, abbiamo esplorato:</p>
+                    <ul class="summary-list">
+                        <li>Le proprietà fondamentali delle onde sonore: ampiezza, frequenza, lunghezza d'onda e fase</li>
+                        <li>Le diverse forme d'onda base: sinusoidale, quadra e triangolare</li>
+                        <li>Come gli effetti audio modificano questi parametri per creare suoni diversi:</li>
+                        <ul>
+                            <li><strong>Phaser e Flanger:</strong> manipolano la fase del segnale</li>
+                            <li><strong>Chorus:</strong> duplica e modifica leggermente il segnale</li>
+                            <li><strong>Equalizzatore:</strong> modifica lo spettro delle frequenze</li>
+                            <li><strong>Distorsione:</strong> altera la forma dell'onda attraverso il clipping</li>
+                        </ul>
+                    </ul>
+                    <p>Comprendere come il suono viene modificato dagli effetti ci permette di apprezzare meglio la complessità della musica moderna e di utilizzare questi strumenti in modo creativo per esprimere la nostra visione artistica.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Risorse Utili</h3>
+                    <ul class="resources-list">
+                        <li><i class="fas fa-book"></i> <a href="https://en.wikipedia.org/wiki/Sound" target="_blank">Wikipedia: Sound</a></li>
+                        <li><i class="fas fa-music"></i> <a href="https://www.soundonsound.com/techniques/effects-explained" target="_blank">Effects Explained</a></li>
+                        <li><i class="fas fa-wave-square"></i> <a href="https://www.physicsclassroom.com/class/sound" target="_blank">Physics of Sound</a></li>
+                    </ul>
+                </div>
+                <p>La Forma del Suono e Come gli Effetti la Modificano | Progetto Educativo</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
