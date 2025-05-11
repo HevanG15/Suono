@@ -29,6 +29,16 @@ document.addEventListener('DOMContentLoaded', function() {
         dropdownToggle.classList.toggle('active');
     });
     
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            if (dropdownMenu.classList.contains('active')) {
+                dropdownMenu.classList.remove('active');
+                dropdownToggle.classList.remove('active');
+            }
+        }
+    });
+    
     // Smooth scrolling for navigation links
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -74,12 +84,45 @@ document.addEventListener('DOMContentLoaded', function() {
     // Draw waveforms on canvases
     const waveCanvases = document.querySelectorAll('.wave-canvas');
     
+    // Function to handle responsive canvas sizing
+    function resizeCanvases() {
+        waveCanvases.forEach(canvas => {
+            const parentWidth = canvas.parentElement.clientWidth;
+            if (parentWidth < canvas.width) {
+                const aspectRatio = canvas.height / canvas.width;
+                canvas.width = parentWidth;
+                canvas.height = parentWidth * aspectRatio;
+            }
+            
+            const waveType = canvas.getAttribute('data-type');
+            const ctx = canvas.getContext('2d');
+            drawWaveform(ctx, waveType, canvas.width, canvas.height);
+        });
+        
+        // Resize main waveform canvas
+        const waveformCanvas = document.getElementById('waveformCanvas');
+        if (waveformCanvas) {
+            const parentWidth = waveformCanvas.parentElement.clientWidth;
+            if (parentWidth < waveformCanvas.width) {
+                const aspectRatio = waveformCanvas.height / waveformCanvas.width;
+                waveformCanvas.width = parentWidth;
+                waveformCanvas.height = parentWidth * aspectRatio;
+            }
+        }
+    }
+    
+    // Initial canvas drawing
     waveCanvases.forEach(canvas => {
         const waveType = canvas.getAttribute('data-type');
         const ctx = canvas.getContext('2d');
-        
         drawWaveform(ctx, waveType, canvas.width, canvas.height);
     });
+    
+    // Handle window resize
+    window.addEventListener('resize', resizeCanvases);
+    
+    // Initial resize
+    resizeCanvases();
     
     // Draw waveform comparison for distortion section
     const cleanWaveCanvas = document.getElementById('clean-wave');
@@ -405,6 +448,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (waveformCanvas) {
         const ctx = waveformCanvas.getContext('2d');
         let time = 0;
+        
+        // Make canvas responsive
+        function updateWaveformCanvas() {
+            const parentWidth = waveformCanvas.parentElement.clientWidth;
+            if (parentWidth < 400) { // Original width is 400
+                waveformCanvas.width = parentWidth;
+                waveformCanvas.height = 200; // Maintain height
+            }
+        }
+        
+        // Initial update
+        updateWaveformCanvas();
+        
+        // Update on resize
+        window.addEventListener('resize', updateWaveformCanvas);
         
         function animateWaveforms() {
             time += 0.05;
