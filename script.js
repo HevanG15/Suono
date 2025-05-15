@@ -1,4 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Prevent multiple audio files from playing simultaneously
+    const allAudioElements = document.querySelectorAll('audio');
+    
+    allAudioElements.forEach(audio => {
+        audio.addEventListener('play', function() {
+            allAudioElements.forEach(otherAudio => {
+                if (otherAudio !== audio && !otherAudio.paused) {
+                    otherAudio.pause();
+                    otherAudio.currentTime = 0;
+                }
+            });
+        });
+    });
+    
     // Theme switcher
     const toggleSwitch = document.querySelector('#checkbox');
     const currentTheme = localStorage.getItem('theme') || 'light';
@@ -329,9 +343,32 @@ document.addEventListener('DOMContentLoaded', function() {
         const conceptMap = document.getElementById('concept-map');
         if (!conceptMap) return;
         
-        // Create a simple concept map visualization
+        // Create a simple concept map visualization with improved connections
         const mapHTML = `
             <svg width="100%" height="100%" viewBox="0 0 800 500">
+                <!-- Draw connections first so they appear behind the nodes -->
+                <!-- Central to Phase connection -->
+                <line x1="346" y1="226" x2="236" y2="172" stroke="var(--phase-color)" stroke-width="2"/>
+                <!-- Phase to Phaser connection -->
+                <line x1="170" y1="130" x2="127" y2="115" stroke="var(--phase-color)" stroke-width="2"/>
+                <!-- Phase to Flanger connection -->
+                <line x1="178" y1="184" x2="165" y2="195" stroke="var(--phase-color)" stroke-width="2"/>
+                
+                <!-- Central to Time connection -->
+                <line x1="367" y1="300" x2="283" y2="325" stroke="var(--time-color)" stroke-width="2"/>
+                <!-- Time to Chorus connection -->
+                <line x1="220" y1="370" x2="175" y2="385" stroke="var(--time-color)" stroke-width="2"/>
+                
+                <!-- Central to Frequency connection -->
+                <line x1="450" y1="275" x2="517" y2="325" stroke="var(--freq-color)" stroke-width="2"/>
+                <!-- Frequency to EQ connection -->
+                <line x1="580" y1="370" x2="625" y2="385" stroke="var(--freq-color)" stroke-width="2"/>
+                
+                <!-- Central to Amplitude connection -->
+                <line x1="450" y1="225" x2="565" y2="170" stroke="var(--amp-color)" stroke-width="2"/>
+                <!-- Amplitude to Distortion connection -->
+                <line x1="630" y1="130" x2="675" y2="115" stroke="var(--amp-color)" stroke-width="2"/>
+                
                 <!-- Central node -->
                 <g class="node central-node">
                     <circle cx="400" cy="250" r="60" fill="var(--card-bg)" stroke="var(--primary-color)" stroke-width="3"/>
@@ -340,48 +377,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 <!-- Phase-based effects -->
                 <g class="node phase-node">
-                    <line x1="400" y1="250" x2="200" y2="150" stroke="var(--phase-color)" stroke-width="2"/>
                     <circle cx="200" cy="150" r="40" fill="var(--card-bg)" stroke="var(--phase-color)" stroke-width="3"/>
                     <text x="200" y="150" text-anchor="middle" dominant-baseline="middle" fill="var(--text-color)">Fase</text>
                     
-                    <line x1="200" y1="150" x2="100" y2="100" stroke="var(--phase-color)" stroke-width="2"/>
                     <circle cx="100" cy="100" r="30" fill="var(--card-bg)" stroke="var(--phase-color)" stroke-width="2"/>
                     <text x="100" y="100" text-anchor="middle" dominant-baseline="middle" fill="var(--text-color)" font-size="12">Phaser</text>
                     
-                    <line x1="200" y1="150" x2="150" y2="220" stroke="var(--phase-color)" stroke-width="2"/>
                     <circle cx="150" cy="220" r="30" fill="var(--card-bg)" stroke="var(--phase-color)" stroke-width="2"/>
                     <text x="150" y="220" text-anchor="middle" dominant-baseline="middle" fill="var(--text-color)" font-size="12">Flanger</text>
                 </g>
                 
                 <!-- Time-based effects -->
                 <g class="node time-node">
-                    <line x1="400" y1="250" x2="250" y2="350" stroke="var(--time-color)" stroke-width="2"/>
                     <circle cx="250" cy="350" r="40" fill="var(--card-bg)" stroke="var(--time-color)" stroke-width="3"/>
                     <text x="250" y="350" text-anchor="middle" dominant-baseline="middle" fill="var(--text-color)">Tempo</text>
                     
-                    <line x1="250" y1="350" x2="150" y2="400" stroke="var(--time-color)" stroke-width="2"/>
                     <circle cx="150" cy="400" r="30" fill="var(--card-bg)" stroke="var(--time-color)" stroke-width="2"/>
                     <text x="150" y="400" text-anchor="middle" dominant-baseline="middle" fill="var(--text-color)" font-size="12">Chorus</text>
                 </g>
                 
                 <!-- Frequency-based effects -->
                 <g class="node freq-node">
-                    <line x1="400" y1="250" x2="550" y2="350" stroke="var(--freq-color)" stroke-width="2"/>
                     <circle cx="550" cy="350" r="40" fill="var(--card-bg)" stroke="var(--freq-color)" stroke-width="3"/>
                     <text x="550" y="350" text-anchor="middle" dominant-baseline="middle" fill="var(--text-color)">Frequenza</text>
                     
-                    <line x1="550" y1="350" x2="650" y2="400" stroke="var(--freq-color)" stroke-width="2"/>
                     <circle cx="650" cy="400" r="30" fill="var(--card-bg)" stroke="var(--freq-color)" stroke-width="2"/>
                     <text x="650" y="400" text-anchor="middle" dominant-baseline="middle" fill="var(--text-color)" font-size="12">EQ</text>
                 </g>
                 
                 <!-- Amplitude-based effects -->
                 <g class="node amp-node">
-                    <line x1="400" y1="250" x2="600" y2="150" stroke="var(--amp-color)" stroke-width="2"/>
                     <circle cx="600" cy="150" r="40" fill="var(--card-bg)" stroke="var(--amp-color)" stroke-width="3"/>
                     <text x="600" y="150" text-anchor="middle" dominant-baseline="middle" fill="var(--text-color)">Ampiezza</text>
                     
-                    <line x1="600" y1="150" x2="700" y2="100" stroke="var(--amp-color)" stroke-width="2"/>
                     <circle cx="700" cy="100" r="30" fill="var(--card-bg)" stroke="var(--amp-color)" stroke-width="2"/>
                     <text x="700" y="100" text-anchor="middle" dominant-baseline="middle" fill="var(--text-color)" font-size="12">Distorsione</text>
                 </g>
